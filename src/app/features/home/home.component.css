@@ -8,4 +8,7 @@
 
 h1 {
   color: blue;
+  backdrop-filter: blur(
+    10px
+  ); /*Ne marche pas avec la version de Firefox la plus récente, par exemple la version 91*/
 }
