@@ -12,13 +12,14 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from "@angular/common/http";
 import { TokenInterceptor } from "./core/interceptors/token.interceptor";
 import { ErrorInterceptor } from "./core/interceptors/error.interceptor";
 import { ApiInterceptor } from "./core/interceptors/api.interceptor";
+import { UselessPageComponent } from "./features/useless/useless-page/useless-page.component";
 
 export function initAuth(jwtService: JwtService, userService: UserService) {
   return () => (jwtService.getToken() ? userService.getCurrentUser() : EMPTY);
 }
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, UselessPageComponent],
   imports: [
     BrowserModule,
     FooterComponent,
