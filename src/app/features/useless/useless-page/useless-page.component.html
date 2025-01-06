@@ -7,4 +7,33 @@
   <button [routerLink]="['/article', slug]" class="btn btn-primary">
     Continuer vers l'article
   </button>
+
+  <div class="carousel-container">
+    <p>Un petit Carousel de chiens trop mignons</p>
+    <div class="carousel">
+      <img
+        src="https://lemagduchien.ouest-france.fr/images/dossiers/2021-01/spitz-nain-073615.jpg"
+      />
+      <img
+        src="https://www.buzzwebzine.fr/wp-content/uploads/2022/10/petit-chien-affectueux-1.jpg"
+      />
+      <img
+        src="https://www.buzzwebzine.fr/wp-content/uploads/2022/10/Le-Teckel.png"
+      />
+      <img
+        src="https://www.buzzwebzine.fr/wp-content/uploads/2022/10/Le-Yorkshire-Terrier-1.jpg"
+      />
+      <img
+        src="https://www.buzzwebzine.fr/wp-content/uploads/2022/10/LAlaskan-Klee-Kai-1.jpg"
+      />
+      <img
+        src="https://www.buzzwebzine.fr/wp-content/uploads/2022/10/Norwich-terrier-1.jpg"
+      />
+    </div>
+
+    <div class="carousel-controls">
+      <button class="prev" (click)="showPrev()">❮</button>
+      <button class="next" (click)="showNext()">❯</button>
+    </div>
+  </div>
 </div>

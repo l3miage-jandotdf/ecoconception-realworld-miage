@@ -12,16 +12,4 @@
   No articles are here... yet.
 </div>
 
-<nav *ngIf="loading === LoadingState.LOADED && totalPages.length > 1">
-  <ul class="pagination">
-    <li
-      class="page-item"
-      [ngClass]="{ active: pageNumber === currentPage }"
-      *ngFor="let pageNumber of totalPages"
-    >
-      <button class="page-link" (click)="setPageTo(pageNumber)">
-        {{ pageNumber }}
-      </button>
-    </li>
-  </ul>
-</nav>
+<!-- Pas de pagination, affichage de tous les articles -->

@@ -1,4 +1,10 @@
-import { Component, Input, OnDestroy } from "@angular/core";
+import {
+  Component,
+  Input,
+  OnDestroy,
+  OnInit,
+  HostListener,
+} from "@angular/core";
 import { ArticlesService } from "../../core/services/articles.service";
 import { ArticleListConfig } from "../../core/models/article-list-config.model";
 import { Article } from "../../core/models/article.model";
@@ -15,7 +21,7 @@ import { takeUntil } from "rxjs/operators";
   imports: [ArticlePreviewComponent, NgForOf, NgClass, NgIf],
   standalone: true,
 })
-export class ArticleListComponent implements OnDestroy {
+export class ArticleListComponent implements OnInit, OnDestroy {
   query!: ArticleListConfig;
   results: Article[] = [];
   currentPage = 1;
@@ -36,9 +42,34 @@ export class ArticleListComponent implements OnDestroy {
 
   constructor(private articlesService: ArticlesService) {}
 
+  ngOnInit(): void {
+    // On écoute le défilement pour détecter quand on est en bas de page
+    window.addEventListener("scroll", this.onScroll);
+  }
+
   ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();
+    window.removeEventListener("scroll", this.onScroll);
+  }
+
+  // Méthode pour charger de nouveaux articles quand on arrive en bas
+  onScroll = (): void => {
+    if (
+      window.innerHeight + window.scrollY >=
+      document.body.offsetHeight - 100
+    ) {
+      // Si on est en bas de la page, charger les articles suivants
+      if (this.loading === LoadingState.LOADED && this.results.length > 0) {
+        this.loadMoreArticles();
+      }
+    }
+  };
+
+  loadMoreArticles() {
+    this.loading = LoadingState.LOADING;
+    this.currentPage++;
+    this.runQuery();
   }
 
   setPageTo(pageNumber: number) {
@@ -50,12 +81,6 @@ export class ArticleListComponent implements OnDestroy {
     this.loading = LoadingState.LOADING;
     this.results = [];
 
-    // Create limit and offset filter (if necessary)
-    if (this.limit) {
-      this.query.filters.limit = this.limit;
-      this.query.filters.offset = this.limit * (this.currentPage - 1);
-    }
-
     this.articlesService
       .query(this.query)
       .pipe(takeUntil(this.destroy$))
@@ -63,11 +88,7 @@ export class ArticleListComponent implements OnDestroy {
         this.loading = LoadingState.LOADED;
         this.results = data.articles;
 
-        // Used from http://www.jstips.co/en/create-range-0...n-easily-using-one-line/
-        this.totalPages = Array.from(
-          new Array(Math.ceil(data.articlesCount / this.limit)),
-          (val, index) => index + 1
-        );
+        this.totalPages = []; // Vide car pas de pagination
       });
   }
 }
