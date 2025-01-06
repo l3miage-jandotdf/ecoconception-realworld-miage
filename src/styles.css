@@ -22,6 +22,18 @@ body {
   }
 }
 
+.nav-link {
+  cursor: pointer;
+}
+
+.tag-pill {
+  cursor: pointer;
+}
+
+.page-link {
+  cursor: pointer;
+}
+
 /* nav {
     display: flex;
     justify-content: space-between;
