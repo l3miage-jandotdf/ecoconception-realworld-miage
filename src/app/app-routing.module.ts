@@ -3,6 +3,7 @@ import { Routes, RouterModule, PreloadAllModules } from "@angular/router";
 import { UserService } from "./core/services/user.service";
 import { map } from "rxjs/operators";
 import { ProfileComponent } from "./features/profile/profile.component";
+import { UselessPageComponent } from "./features/useless/useless-page/useless-page.component"; // Import du composant inutile
 
 const routes: Routes = [
   {
@@ -86,6 +87,10 @@ const routes: Routes = [
       import("./features/article/article.component").then(
         (m) => m.ArticleComponent
       ),
+  },
+  {
+    path: "useless-page/:slug", // Route pour la page inutile
+    component: UselessPageComponent,
   },
 ];
 
