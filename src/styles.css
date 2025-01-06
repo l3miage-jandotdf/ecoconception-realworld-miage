@@ -39,3 +39,64 @@ body {
     justify-content: space-between;
     padding: 20px;
 } */
+
+/*rajout d'animations inutiles*/
+h1 {
+  animation: bounce 2s infinite;
+}
+
+.logo-font {
+  animation: spin 1s infinite;
+}
+
+button {
+  animation: fadeIn 1s infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.banner {
+  animation: flashyEffect 1s infinite;
+}
+
+@keyframes flashyEffect {
+  0%,
+  100% {
+    background-color: yellow;
+  }
+  50% {
+    background-color: red;
+  }
+}
+
+.home-page {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}

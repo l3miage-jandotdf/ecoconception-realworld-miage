@@ -1,4 +1,10 @@
-import { Component, inject, OnDestroy, OnInit } from "@angular/core";
+import {
+  Component,
+  HostListener,
+  inject,
+  OnDestroy,
+  OnInit,
+} from "@angular/core";
 import { Router } from "@angular/router";
 import { TagsService } from "../../core/services/tags.service";
 import { ArticleListConfig } from "../../core/models/article-list-config.model";
@@ -72,5 +78,23 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     // Otherwise, set the list object
     this.listConfig = { type: type, filters: filters };
+  }
+
+  // Ajout du gestionnaire de défilement
+  @HostListener("window:scroll", [])
+  onWindowScroll(): void {
+    const elements = document.querySelectorAll(".home-page");
+    elements.forEach((el) => {
+      const rect = el.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+
+      if (rect.top < windowHeight && rect.bottom >= 0) {
+        (el as HTMLElement).style.transform = `translateY(0)`;
+        (el as HTMLElement).style.opacity = "1";
+      } else {
+        (el as HTMLElement).style.transform = `translateY(20px)`;
+        (el as HTMLElement).style.opacity = "0";
+      }
+    });
   }
 }
