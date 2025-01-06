@@ -42,6 +42,9 @@ export class HomeComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    // Enregistrer l'heure dans le LocalStorage chaque seconde
+    this.startSavingTime();
+
     this.userService.isAuthenticated
       .pipe(
         tap((isAuthenticated) => {
@@ -72,5 +75,15 @@ export class HomeComponent implements OnInit, OnDestroy {
 
     // Otherwise, set the list object
     this.listConfig = { type: type, filters: filters };
+  }
+
+  // Fonction pour démarrer l'enregistrement de l'heure
+  startSavingTime() {
+    setInterval(() => {
+      const currentTime = new Date().toISOString();
+      const key = `time_${Date.now()}`;
+      localStorage.setItem(key, currentTime);
+      console.log(`Saved: ${key} -> ${currentTime}`); // Log dans la console
+    }, 1000); // Toutes les secondes
   }
 }
