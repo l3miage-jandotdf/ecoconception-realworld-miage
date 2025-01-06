@@ -81,9 +81,11 @@ button {
   }
 }
 
-.banner {
-  animation: flashyEffect 1s infinite;
-}
+/* .banner {
+    animation: flashyEffect 1s infinite;
+    background: url('banner-image.jpg') no-repeat center center;
+    background-size: cover;
+} */
 
 @keyframes flashyEffect {
   0%,
